@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GM Arti Grafiche</title>
+
+<style>
+body{background:#0b0f19;color:white;font-family:system-ui;margin:0}
+.box{max-width:900px;margin:20px auto;padding:20px}
+.btn{background:#21c063;color:black;padding:12px 16px;border-radius:12px;text-decoration:none;font-weight:bold}
+.card{background:#121a2b;padding:16px;border-radius:14px;margin:10px 0}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+
+<h1>Ti serve un biglietto da visita?</h1>
+<p>Sei nel posto giusto. Il nostro grafico è a tua disposizione.</p>
+
+<div class="card">
+<b>1000 biglietti standard = 70€</b><br>
+Grafica + stampa + consegna inclusa
+</div>
+
+<div class="card">
+<b>1000 biglietti plastificati = 80€</b><br>
+Versione premium più resistente
+</div>
+
+<br>
+
+<a id="wa" class="btn">Parla con il grafico su WhatsApp</a>
+
+</div>
+
+<script>
+const numero = "39XXXXXXXXXX";
+
+const msg = "Ciao! Vorrei informazioni per i biglietti da visita";
+document.getElementById("wa").href =
+"https://wa.me/" + numero + "?text=" + encodeURIComponent(msg);
+</script>
+
+</body>
+</html>
