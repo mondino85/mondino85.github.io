@@ -284,9 +284,9 @@ Note/urgenza (se serve):
 Grazie!`;
 
     function buildWaUrl(message) {
-      const text = encodeURIComponent(message);
-      return `https://wa.me/${WHATSAPP_NUMBER}?text=${text}`;
-    }
+  const text = encodeURIComponent(message);
+  return `https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${text}`;
+}
 
     const hasNumber = WHATSAPP_NUMBER && WHATSAPP_NUMBER.trim().length > 0;
 
