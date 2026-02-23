@@ -251,28 +251,69 @@
   </div>
 
   <script>
-    // ✅ METTI QUI IL TUO NUMERO (senza +, senza spazi) es: 393331234567
-    const WHATSAPP_NUMBER = "";
+    // ✅ Numero WhatsApp (senza +, senza spazi): 3516020208 -> 39 + numero
+    const WHATSAPP_NUMBER = "393516020208";
 
+    // Messaggio commerciale "il giusto": preventivo + bozza + fattura + consegna
     const WA_MESSAGE =
-      "Ciao! Vorrei fare dei biglietti da visita.%0A" +
-      "Scelta: (70€ standard / 80€ plastificati)%0A" +
-      "Nome attività:%0A" +
-      "Nome e cognome:%0A" +
-      "Telefono:%0A" +
-      "Zona consegna:%0A" +
-      "Testo sul biglietto:%0A" +
-      "Grazie!";
+`Ciao! Vorrei un preventivo per BIGLIETTI DA VISITA.
 
-    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${WA_MESSAGE}`;
+✅ Pacchetto (scegli):
+- 70€ (1000 standard)
+- 80€ (1000 plastificati)
+
+DATI PER LA GRAFICA
+• Nome attività:
+• Settore/servizio (2 righe):
+• Nome e cognome:
+• Telefono:
+• Email (facoltativa):
+• Indirizzo / zona consegna:
+
+STAMPA
+• Fronte/retro? (F / F+R):
+• Preferenze colore/stile (es. elegante, minimal, bold):
+• Hai logo/foto? (sì/no) -> se sì, invio qui in chat
+
+FATTURA (se serve)
+• Partita IVA o Codice Fiscale:
+• Intestazione/Ragione sociale:
+• Indirizzo di fatturazione:
+
+Note/urgenza (se serve):
+Grazie!`;
+
+    function buildWaUrl(message) {
+      const text = encodeURIComponent(message);
+      return `https://wa.me/${WHATSAPP_NUMBER}?text=${text}`;
+    }
+
+    const hasNumber = WHATSAPP_NUMBER && WHATSAPP_NUMBER.trim().length > 0;
+
+    // (Opzionale ma utile) aggiunge anche il link della pagina nel messaggio
+    const PAGE_URL = window.location.href;
+    const finalMessage = WA_MESSAGE + `\n\nLink pagina: ${PAGE_URL}`;
+
+    const url = hasNumber ? buildWaUrl(finalMessage) : "#";
+
     document.getElementById("waBtn").href = url;
     document.getElementById("waBtn2").href = url;
     document.getElementById("waFooter").href = url;
 
-    const pretty = WHATSAPP_NUMBER.startsWith("39") ? "+39 " + WHATSAPP_NUMBER.slice(2) : WHATSAPP_NUMBER;
+    const pretty = (hasNumber && WHATSAPP_NUMBER.startsWith("39"))
+      ? "+39 " + WHATSAPP_NUMBER.slice(2)
+      : (hasNumber ? WHATSAPP_NUMBER : "+39 …");
+
     document.getElementById("waLabel").textContent = pretty;
 
     document.getElementById("year").textContent = new Date().getFullYear();
+
+    if (!hasNumber) {
+      const warn = () => alert("Inserisci il numero WhatsApp nel codice: WHATSAPP_NUMBER.");
+      document.getElementById("waBtn").addEventListener("click", (e) => { e.preventDefault(); warn(); });
+      document.getElementById("waBtn2").addEventListener("click", (e) => { e.preventDefault(); warn(); });
+      document.getElementById("waFooter").addEventListener("click", (e) => { e.preventDefault(); warn(); });
+    }
   </script>
 </body>
 </html>
