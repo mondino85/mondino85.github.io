@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>GM Arti Grafiche | Biglietti da visita</title>
-  <meta name="description" content="Biglietti da visita: grafica + stampa + consegna. 1000 biglietti 70€, plastificati 80€." />
+  <meta name="description" content="Biglietti da visita: grafica + stampa + consegna. 500 a 65€, 1000 a 75€, 1000 plastificati 85€." />
 
   <style>
     :root{
@@ -97,6 +97,7 @@
       border-radius:16px;
       background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
       padding:14px;margin-top:10px;
+      position:relative;
     }
     .row{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
     .euro{font-size:30px;font-weight:950;letter-spacing:-.4px}
@@ -124,6 +125,23 @@
       border:1px solid rgba(91,124,255,.35);
       font-weight:950;
       margin-bottom:10px;
+    }
+
+    /* Evidenzia "Più scelto" */
+    .featured{
+      border:2px solid rgba(255,255,255,.22);
+      background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
+    }
+    .badge{
+      position:absolute;
+      top:10px; right:10px;
+      font-size:12px;
+      font-weight:950;
+      padding:6px 10px;
+      border-radius:999px;
+      background:rgba(255,255,255,.10);
+      border:1px solid rgba(255,255,255,.18);
+      color:var(--txt);
     }
 
     .footer{
@@ -158,54 +176,69 @@
       </p>
 
       <div class="cta">
-  <a class="btn btnWA"
-     href="https://api.whatsapp.com/send?phone=393516020208&text=Ciao,%20mi%20servono%20dei%20biglietti%20da%20visita."
-     target="_blank" rel="noopener">💬 Parla con il grafico ora</a>
+        <!-- ID aggiunto per far funzionare lo script -->
+        <a class="btn btnWA" id="waBtn"
+           href="https://api.whatsapp.com/send?phone=393516020208&text=Ciao,%20mi%20servono%20dei%20biglietti%20da%20visita."
+           target="_blank" rel="noopener">💬 Parla con il grafico ora</a>
 
-  <a class="btn" href="#prezzi">💶 Prezzi</a>
-  <a class="btn" href="#come">⚙️ Come funziona</a>
-</div>
+        <a class="btn" href="#prezzi">💶 Prezzi</a>
+        <a class="btn" href="#come">⚙️ Come funziona</a>
+      </div>
 
       <div class="mini">
         <span>✅ Prezzo fisso</span>
         <span>✅ Bozza gratuita</span>
         <span>✅ Consegna inclusa</span>
       </div>
+
       <div style="margin-top:18px;padding:14px;border:1px solid var(--border);border-radius:14px;background:rgba(255,255,255,.04);font-size:14px;max-width:260px;">
-  <strong>Orari di contatto</strong><br><br>
+        <strong>Orari di contatto</strong><br><br>
 
-  <b>Lun – Ven</b><br>
-  09:00 – 13:00<br>
-  16:00 – 18:30<br><br>
+        <b>Lun – Ven</b><br>
+        09:00 – 13:00<br>
+        16:00 – 18:30<br><br>
 
-  <b>Sabato</b><br>
-  Su appuntamento<br><br>
+        <b>Sabato</b><br>
+        Su appuntamento<br><br>
 
-  <b>Domenica</b><br>
-  Chiuso<br><br>
+        <b>Domenica</b><br>
+        Chiuso<br><br>
 
-  <span style="color:var(--muted);font-size:12px;">
-    Rispondiamo ai messaggi entro poche ore negli orari indicati.
-  </span>
-</div>
+        <span style="color:var(--muted);font-size:12px;">
+          Rispondiamo ai messaggi entro poche ore negli orari indicati.
+        </span>
+      </div>
     </section>
 
     <div class="grid">
       <section class="card" id="prezzi">
         <h2 style="margin:0 0 8px 0">Prezzi chiari</h2>
+        <p class="note" style="margin:0 0 6px 0">Grafica + stampa + consegna inclusa.</p>
 
+        <!-- 500 -->
         <div class="price">
           <div class="row">
-            <div class="tag">1000 biglietti (standard)</div>
-            <div class="euro">70€</div>
+            <div class="tag">500 biglietti (standard)</div>
+            <div class="euro">65€</div>
           </div>
-          <p class="note">Grafica + stampa + consegna inclusa.</p>
+          <p class="note">Ideale per iniziare. Tutto incluso.</p>
         </div>
 
+        <!-- 1000 (featured) -->
+        <div class="price featured">
+          <div class="badge">Più scelto ⭐</div>
+          <div class="row">
+            <div class="tag">1000 biglietti (standard)</div>
+            <div class="euro">75€</div>
+          </div>
+          <p class="note">Il miglior rapporto qualità/prezzo. Tutto incluso.</p>
+        </div>
+
+        <!-- 1000 plastificati -->
         <div class="price">
           <div class="row">
             <div class="tag">1000 biglietti (plastificati)</div>
-            <div class="euro">80€</div>
+            <div class="euro">85€</div>
           </div>
           <p class="note">Più resistenti, effetto premium. Tutto incluso.</p>
         </div>
@@ -220,11 +253,13 @@
         </ul>
 
         <div style="margin-top:14px">
-          <a class="btn btnWA"
-   href="https://api.whatsapp.com/send?phone=393516020208&text=Ciao!%20Vorrei%20un%20preventivo%20per%20BIGLIETTI%20DA%20VISITA.%0A%0APacchetto%20(scegli):%0A-%2070%E2%82%AC%20(1000%20standard)%0A-%2080%E2%82%AC%20(1000%20plastificati)%0A%0ADATI%20PER%20LA%20GRAFICA%0A%E2%80%A2%20Nome%20attivit%C3%A0:%0A%E2%80%A2%20Settore/servizio%20(2%20righe):%0A%E2%80%A2%20Nome%20e%20cognome:%0A%E2%80%A2%20Telefono:%0A%E2%80%A2%20Email%20(facoltativa):%0A%E2%80%A2%20Indirizzo%20/%20zona%20consegna:%0A%0ASTAMPA%0A%E2%80%A2%20Fronte/retro%3F%20(F%20/%20F%2BR):%0A%E2%80%A2%20Stile%20(es.%20elegante,%20minimal,%20bold):%0A%E2%80%A2%20Hai%20logo/foto%3F%20(s%C3%AC/no)%0A%0AFATTURA%20(se%20serve)%0A%E2%80%A2%20P.IVA%20o%20CF:%0A%E2%80%A2%20Intestazione/Ragione%20sociale:%0A%E2%80%A2%20Indirizzo%20fatturazione:%0A%0ANote/urgenza:%0AGrazie!"
-   target="_blank" rel="noopener" style="width:100%">
-  💬 Ordina su WhatsApp
-</a>
+          <!-- ID aggiunto per far funzionare lo script -->
+          <a class="btn btnWA" id="waBtn2"
+             href="https://api.whatsapp.com/send?phone=393516020208&text=Ciao!%20Vorrei%20un%20preventivo%20per%20BIGLIETTI%20DA%20VISITA.%0A%0APacchetto%20(scegli):%0A-%2065%E2%82%AC%20(500%20standard)%0A-%2075%E2%82%AC%20(1000%20standard)%0A-%2085%E2%82%AC%20(1000%20plastificati)%0A%0ADATI%20PER%20LA%20GRAFICA%0A%E2%80%A2%20Nome%20attivit%C3%A0:%0A%E2%80%A2%20Settore/servizio%20(2%20righe):%0A%E2%80%A2%20Nome%20e%20cognome:%0A%E2%80%A2%20Telefono:%0A%E2%80%A2%20Email%20(facoltativa):%0A%E2%80%A2%20Indirizzo%20/%20zona%20consegna:%0A%0ASTAMPA%0A%E2%80%A2%20Fronte/retro%3F%20(F%20/%20F%2BR):%0A%E2%80%A2%20Stile%20(es.%20elegante,%20minimal,%20bold):%0A%E2%80%A2%20Hai%20logo/foto%3F%20(s%C3%AC/no)%0A%0AFATTURA%20(se%20serve)%0A%E2%80%A2%20P.IVA%20o%20CF:%0A%E2%80%A2%20Intestazione/Ragione%20sociale:%0A%E2%80%A2%20Indirizzo%20fatturazione:%0A%0ANote/urgenza:%0AGrazie!"
+             target="_blank" rel="noopener" style="width:100%">
+            💬 Ordina su WhatsApp
+          </a>
+
           <p class="note" style="margin-top:10px">
             Scrivici: nome attività + cosa fai + cosa vuoi sul biglietto. Ti mandiamo la bozza.
           </p>
@@ -268,7 +303,8 @@
 
     <footer class="footer">
       <div>© <span id="year"></span> GM Arti Grafiche</div>
-      <div><a href="https://api.whatsapp.com/send?phone=393516020208" target="_blank" rel="noopener">WhatsApp</a></div>
+      <!-- ID aggiunto per far funzionare lo script -->
+      <div><a id="waFooter" href="https://api.whatsapp.com/send?phone=393516020208" target="_blank" rel="noopener">WhatsApp</a></div>
     </footer>
   </div>
 
@@ -276,13 +312,14 @@
     // ✅ Numero WhatsApp (senza +, senza spazi): 3516020208 -> 39 + numero
     const WHATSAPP_NUMBER = "393516020208";
 
-    // Messaggio commerciale "il giusto": preventivo + bozza + fattura + consegna
+    // Messaggio commerciale aggiornato ai nuovi pacchetti 65/75/85
     const WA_MESSAGE =
 `Ciao! Vorrei un preventivo per BIGLIETTI DA VISITA.
 
 ✅ Pacchetto (scegli):
-- 70€ (1000 standard)
-- 80€ (1000 plastificati)
+- 65€ (500 standard)
+- 75€ (1000 standard) ⭐ Più scelto
+- 85€ (1000 plastificati)
 
 DATI PER LA GRAFICA
 • Nome attività:
@@ -306,18 +343,19 @@ Note/urgenza (se serve):
 Grazie!`;
 
     function buildWaUrl(message) {
-  const text = encodeURIComponent(message);
-  return `https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${text}`;
-}
+      const text = encodeURIComponent(message);
+      return `https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${text}`;
+    }
 
     const hasNumber = WHATSAPP_NUMBER && WHATSAPP_NUMBER.trim().length > 0;
 
-    // (Opzionale ma utile) aggiunge anche il link della pagina nel messaggio
+    // (Opzionale) aggiunge anche il link della pagina nel messaggio
     const PAGE_URL = window.location.href;
     const finalMessage = WA_MESSAGE + `\n\nLink pagina: ${PAGE_URL}`;
 
     const url = hasNumber ? buildWaUrl(finalMessage) : "#";
 
+    // Ora gli ID esistono davvero
     document.getElementById("waBtn").href = url;
     document.getElementById("waBtn2").href = url;
     document.getElementById("waFooter").href = url;
@@ -327,7 +365,6 @@ Grazie!`;
       : (hasNumber ? WHATSAPP_NUMBER : "+39 …");
 
     document.getElementById("waLabel").textContent = pretty;
-
     document.getElementById("year").textContent = new Date().getFullYear();
 
     if (!hasNumber) {
