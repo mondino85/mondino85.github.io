@@ -2,378 +2,839 @@
 <html lang="it">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>GM Arti Grafiche | Biglietti da visita</title>
-  <meta name="description" content="Biglietti da visita: grafica + stampa + consegna. 500 a 65€, 1000 a 75€, 1000 plastificati 85€." />
-
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Biglietti da visita personalizzati | Neon Card Maker</title>
+  <meta name="description" content="Crea un biglietto da visita personalizzato con nome, telefono, QR code automatico e pulsante WhatsApp in un design neon blu/viola mobile friendly." />
   <style>
-    :root{
-      --bg:#0b0f19;
-      --panel:#121a2b;
-      --panel2:#0f1626;
-      --txt:#e9eefc;
-      --muted:#a9b4d0;
-      --border:rgba(255,255,255,.10);
-      --shadow: 0 10px 30px rgba(0,0,0,.35);
-      --r:18px;
-      --wa:#21c063;
+    :root {
+      --bg: #070816;
+      --bg-secondary: #0f1230;
+      --panel: rgba(13, 18, 40, 0.82);
+      --panel-strong: rgba(14, 20, 48, 0.96);
+      --text: #f4f7ff;
+      --muted: #aab6df;
+      --line: rgba(165, 184, 255, 0.2);
+      --neon-blue: #42d7ff;
+      --neon-violet: #8d4dff;
+      --neon-pink: #ef4cff;
+      --success: #25d366;
+      --shadow: 0 22px 60px rgba(0, 0, 0, 0.45);
+      --radius-xl: 28px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
     }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
       background:
-        radial-gradient(900px 420px at 15% 0%, rgba(91,124,255,.18), transparent 55%),
-        radial-gradient(900px 420px at 90% 10%, rgba(33,192,99,.16), transparent 55%),
-        var(--bg);
-      color:var(--txt);
-      line-height:1.45;
-    }
-    a{color:inherit;text-decoration:none}
-    .wrap{max-width:980px;margin:0 auto;padding:22px}
-    .top{
-      display:flex;align-items:center;justify-content:space-between;gap:12px;
-      padding:10px 0 18px 0;
-    }
-    .brand{display:flex;align-items:center;gap:12px;font-weight:900;letter-spacing:.2px}
-    .logo{
-      width:42px;height:42px;border-radius:14px;
-      background:linear-gradient(135deg, rgba(91,124,255,.95), rgba(33,192,99,.85));
-      box-shadow:var(--shadow);
-    }
-    .subbrand{font-size:12px;color:var(--muted);font-weight:800;margin-top:2px}
-    .pill{
-      display:inline-flex;align-items:center;gap:10px;
-      padding:10px 14px;border-radius:999px;
-      border:1px solid var(--border);
-      background:rgba(255,255,255,.04);
-      color:var(--muted);font-weight:700;font-size:13px;
-      white-space:nowrap;
+        radial-gradient(circle at top left, rgba(66, 215, 255, 0.16), transparent 30%),
+        radial-gradient(circle at top right, rgba(141, 77, 255, 0.22), transparent 35%),
+        radial-gradient(circle at bottom center, rgba(239, 76, 255, 0.14), transparent 28%),
+        linear-gradient(160deg, #05060f 0%, #0a0d21 45%, #090611 100%);
+      overflow-x: hidden;
     }
 
-    .hero{
-      border:1px solid var(--border);
-      border-radius:var(--r);
-      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
-      box-shadow:var(--shadow);
-      padding:26px;
-    }
-    h1{margin:0 0 10px 0;font-size:40px;line-height:1.06;letter-spacing:-.7px}
-    @media (max-width:520px){h1{font-size:32px}}
-    .lead{margin:0 0 16px 0;color:var(--muted);max-width:62ch}
-    .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px}
-    .btn{
-      display:inline-flex;align-items:center;justify-content:center;gap:10px;
-      padding:12px 16px;border-radius:14px;font-weight:900;
-      border:1px solid var(--border);
-      background:rgba(255,255,255,.05);
-      transition:transform .08s ease, background .15s ease;
-    }
-    .btn:hover{transform:translateY(-1px);background:rgba(255,255,255,.08)}
-    .btnWA{
-      background:linear-gradient(135deg, rgba(33,192,99,.95), rgba(33,192,99,.72));
-      border-color:rgba(33,192,99,.45);
-      color:#06110b;
-    }
-    .btnWA:hover{background:linear-gradient(135deg, rgba(33,192,99,1), rgba(33,192,99,.78))}
-    .mini{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;color:var(--muted);font-size:13px}
-
-    .grid{
-      display:grid;gap:14px;margin-top:14px;
-      grid-template-columns:1.15fr .85fr;
-      align-items:stretch;
-    }
-    @media (max-width:900px){.grid{grid-template-columns:1fr}}
-
-    .card{
-      border:1px solid var(--border);
-      border-radius:var(--r);
-      background:rgba(18,26,43,.78);
-      box-shadow:var(--shadow);
-      padding:18px;
-    }
-    .price{
-      border:1px solid var(--border);
-      border-radius:16px;
-      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
-      padding:14px;margin-top:10px;
-      position:relative;
-    }
-    .row{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
-    .euro{font-size:30px;font-weight:950;letter-spacing:-.4px}
-    .tag{font-weight:900}
-    .note{margin:8px 0 0 0;color:var(--muted);font-size:13px}
-
-    .list{margin:10px 0 0 0;padding-left:18px;color:var(--muted)}
-    .list li{margin:6px 0}
-
-    .steps{
-      display:grid;gap:12px;margin-top:14px;
-      grid-template-columns:repeat(4,1fr);
-    }
-    @media (max-width:900px){.steps{grid-template-columns:1fr}}
-    .step{
-      border:1px solid var(--border);
-      border-radius:16px;
-      background:rgba(15,22,38,.65);
-      padding:14px;
-    }
-    .num{
-      width:32px;height:32px;border-radius:12px;
-      display:flex;align-items:center;justify-content:center;
-      background:rgba(91,124,255,.22);
-      border:1px solid rgba(91,124,255,.35);
-      font-weight:950;
-      margin-bottom:10px;
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 32px 32px;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,0.65), transparent 95%);
     }
 
-    /* Evidenzia "Più scelto" */
-    .featured{
-      border:2px solid rgba(255,255,255,.22);
-      background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
-    }
-    .badge{
-      position:absolute;
-      top:10px; right:10px;
-      font-size:12px;
-      font-weight:950;
-      padding:6px 10px;
-      border-radius:999px;
-      background:rgba(255,255,255,.10);
-      border:1px solid rgba(255,255,255,.18);
-      color:var(--txt);
+    a { color: inherit; text-decoration: none; }
+
+    .page {
+      width: min(1160px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 28px 0 56px;
     }
 
-    .footer{
-      margin-top:18px;
-      border-top:1px solid var(--border);
-      padding:16px 2px;
-      display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;
-      color:var(--muted);font-size:13px;
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-badge {
+      width: 54px;
+      height: 54px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, var(--neon-blue), var(--neon-violet));
+      box-shadow:
+        0 0 18px rgba(66, 215, 255, 0.45),
+        0 0 28px rgba(141, 77, 255, 0.35);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .brand-badge::after {
+      content: "";
+      position: absolute;
+      inset: 2px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.35);
+    }
+
+    .brand-copy h1 {
+      margin: 0;
+      font-size: 1.1rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .brand-copy p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 18px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--muted);
+      backdrop-filter: blur(18px);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03);
+      font-size: 0.95rem;
+    }
+
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--neon-blue);
+      box-shadow: 0 0 14px rgba(66, 215, 255, 0.85);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .glass {
+      position: relative;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      background: linear-gradient(180deg, rgba(255,255,255,0.1), rgba(255,255,255,0.03));
+      backdrop-filter: blur(18px);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .glass::before {
+      content: "";
+      position: absolute;
+      inset: auto -15% 68% 20%;
+      height: 160px;
+      background: radial-gradient(circle, rgba(66, 215, 255, 0.22), transparent 72%);
+      pointer-events: none;
+    }
+
+    .hero-copy,
+    .editor-card,
+    .preview-card,
+    .feature,
+    .tips {
+      padding: 28px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(66, 215, 255, 0.08);
+      border: 1px solid rgba(66, 215, 255, 0.18);
+      color: #bceeff;
+      font-size: 0.86rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    .hero-copy h2 {
+      margin: 0;
+      font-size: clamp(2.3rem, 5vw, 4.6rem);
+      line-height: 0.98;
+      letter-spacing: -0.04em;
+      max-width: 11ch;
+    }
+
+    .hero-copy h2 span {
+      color: transparent;
+      background: linear-gradient(135deg, var(--neon-blue), #c0b0ff 45%, var(--neon-pink));
+      -webkit-background-clip: text;
+      background-clip: text;
+      text-shadow: 0 0 18px rgba(141, 77, 255, 0.24);
+    }
+
+    .hero-copy p {
+      margin: 18px 0 0;
+      color: var(--muted);
+      font-size: 1.05rem;
+      max-width: 58ch;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 26px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 18px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.06);
+      color: var(--text);
+      font-weight: 700;
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.24);
+      border-color: rgba(165, 184, 255, 0.32);
+    }
+
+    .button.primary {
+      background: linear-gradient(135deg, rgba(66, 215, 255, 0.92), rgba(141, 77, 255, 0.95));
+      color: #050914;
+      box-shadow: 0 0 26px rgba(66, 215, 255, 0.22);
+      border-color: rgba(255,255,255,0.24);
+    }
+
+    .button.whatsapp {
+      background: linear-gradient(135deg, #2be67b, #1faf5a);
+      color: #041109;
+      border-color: rgba(43, 230, 123, 0.36);
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 30px;
+    }
+
+    .stat {
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(6, 10, 26, 0.56);
+      border: 1px solid rgba(165, 184, 255, 0.12);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.45rem;
+      margin-bottom: 6px;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .workspace {
+      display: grid;
+      grid-template-columns: minmax(0, 0.92fr) minmax(320px, 1.08fr);
+      gap: 24px;
+      margin-top: 28px;
+    }
+
+    .editor-card h3,
+    .preview-card h3,
+    .feature h3,
+    .tips h3 {
+      margin: 0 0 10px;
+      font-size: 1.35rem;
+    }
+
+    .section-lead {
+      margin: 0 0 24px;
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+
+    .form-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .field {
+      display: grid;
+      gap: 10px;
+    }
+
+    .field label {
+      font-weight: 700;
+      letter-spacing: 0.01em;
+    }
+
+    .field input {
+      width: 100%;
+      padding: 16px 18px;
+      border-radius: 16px;
+      border: 1px solid rgba(165, 184, 255, 0.18);
+      background: rgba(5, 9, 24, 0.72);
+      color: var(--text);
+      outline: none;
+      font: inherit;
+      transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease;
+    }
+
+    .field input::placeholder { color: #7e89af; }
+
+    .field input:focus {
+      border-color: rgba(66, 215, 255, 0.65);
+      box-shadow: 0 0 0 4px rgba(66, 215, 255, 0.12);
+      transform: translateY(-1px);
+    }
+
+    .editor-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    .helper {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .preview-shell {
+      display: grid;
+      gap: 18px;
+    }
+
+    .business-card {
+      position: relative;
+      min-height: 260px;
+      border-radius: 28px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 20% 0%, rgba(66, 215, 255, 0.24), transparent 34%),
+        radial-gradient(circle at 100% 0%, rgba(141, 77, 255, 0.34), transparent 38%),
+        linear-gradient(145deg, #09101f 0%, #121332 40%, #1b0f37 100%);
+      border: 1px solid rgba(180, 198, 255, 0.2);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.12),
+        0 18px 40px rgba(0,0,0,0.38),
+        0 0 32px rgba(141, 77, 255, 0.14);
+      padding: 24px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 18px;
+      align-items: end;
+    }
+
+    .business-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.08) 45%, transparent 52%);
+      transform: translateX(-70%);
+      animation: shine 7s linear infinite;
+    }
+
+    @keyframes shine {
+      to { transform: translateX(130%); }
+    }
+
+    .card-lines {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,0.035), transparent 35%),
+        linear-gradient(0deg, transparent, rgba(255,255,255,0.03) 50%, transparent 100%);
+      pointer-events: none;
+    }
+
+    .card-content {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: 14px;
+      align-self: stretch;
+    }
+
+    .card-chip {
+      width: 56px;
+      height: 40px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.24);
+      background: linear-gradient(135deg, rgba(255,255,255,0.25), rgba(255,255,255,0.08));
+      backdrop-filter: blur(10px);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.25);
+    }
+
+    .card-label {
+      color: #ced8ff;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      font-size: 0.76rem;
+    }
+
+    .card-name {
+      margin: 0;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      line-height: 0.98;
+      letter-spacing: -0.04em;
+      text-shadow: 0 0 20px rgba(66, 215, 255, 0.16);
+      word-break: break-word;
+    }
+
+    .card-phone {
+      font-size: 1.05rem;
+      color: #d9e2ff;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .card-phone span:first-child {
+      font-size: 1.05rem;
+      color: var(--neon-blue);
+      text-shadow: 0 0 12px rgba(66, 215, 255, 0.5);
+    }
+
+    .mini-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      align-self: start;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255,255,255,0.14);
+      font-size: 0.84rem;
+      color: #dce3ff;
+    }
+
+    .qr-wrap {
+      position: relative;
+      z-index: 1;
+      align-self: start;
+      display: grid;
+      gap: 10px;
+      justify-items: center;
+    }
+
+    .qr-frame {
+      padding: 12px;
+      border-radius: 24px;
+      background: rgba(255,255,255,0.96);
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.5),
+        0 0 30px rgba(66, 215, 255, 0.14);
+    }
+
+    .qr-frame img {
+      display: block;
+      width: 128px;
+      height: 128px;
+      border-radius: 16px;
+      background: #fff;
+    }
+
+    .qr-caption {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .quick-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .quick-actions .button {
+      flex: 1 1 180px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 28px;
+    }
+
+    .feature {
+      min-height: 100%;
+    }
+
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, rgba(66, 215, 255, 0.24), rgba(141, 77, 255, 0.3));
+      border: 1px solid rgba(165, 184, 255, 0.18);
+      font-size: 1.3rem;
+      box-shadow: 0 0 20px rgba(141, 77, 255, 0.12);
+    }
+
+    .feature p,
+    .tips li {
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .tips {
+      margin-top: 28px;
+    }
+
+    .tips ul {
+      margin: 0;
+      padding-left: 18px;
+      display: grid;
+      gap: 10px;
+    }
+
+    footer {
+      margin-top: 26px;
+      padding: 22px 4px 0;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      font-size: 0.92rem;
+    }
+
+    @media (max-width: 980px) {
+      .hero,
+      .workspace,
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-copy h2 { max-width: none; }
+    }
+
+    @media (max-width: 640px) {
+      .page {
+        width: min(100% - 20px, 1160px);
+        padding-top: 18px;
+      }
+
+      .hero-copy,
+      .editor-card,
+      .preview-card,
+      .feature,
+      .tips {
+        padding: 22px;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .business-card {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+
+      .qr-wrap {
+        justify-items: start;
+      }
+
+      .qr-frame img {
+        width: 116px;
+        height: 116px;
+      }
+
+      .topbar {
+        align-items: flex-start;
+      }
     }
   </style>
 </head>
-
 <body>
-  <div class="wrap">
-    <header class="top">
+  <main class="page">
+    <header class="topbar">
       <div class="brand">
-        <img src="logo.png" style="width:46px;height:46px;border-radius:14px;">
-        <div>
-          <div style="font-size:16px;line-height:1.1">GM Arti Grafiche</div>
-          <div class="subbrand">Grafica • Stampa • Consegna</div>
+        <div class="brand-badge" aria-hidden="true"></div>
+        <div class="brand-copy">
+          <h1>Neon Card Maker</h1>
+          <p>Biglietti da visita personalizzati, dinamici e pronti da condividere.</p>
         </div>
       </div>
-
-      <div class="pill">📲 WhatsApp: <b id="waLabel">+39 …</b></div>
+      <div class="status-pill">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span>Anteprima live · QR code automatico · mobile first</span>
+      </div>
     </header>
 
     <section class="hero">
-      <h1>Ti serve un biglietto da visita?<br>Sei nel posto giusto.</h1>
-      <p class="lead">
-        Il nostro grafico è a tua disposizione: prepariamo la bozza gratuita, la sistemiamo con te e stampiamo
-        solo quando approvi. Poi consegniamo tutto pronto.
-      </p>
+      <article class="glass hero-copy">
+        <div class="eyebrow">Esperienza neon blu/viola</div>
+        <h2>Il tuo <span>biglietto digitale</span> in pochi secondi.</h2>
+        <p>
+          Inserisci nome e telefono per generare una card moderna con stile neon, QR code automatico e pulsante
+          WhatsApp dedicato. Il layout è responsive, pronto sia per smartphone che desktop.
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href="#personalizza">✨ Personalizza ora</a>
+          <a class="button" href="#anteprima">📲 Vai all'anteprima</a>
+        </div>
+        <div class="stats">
+          <div class="stat">
+            <strong>Live QR</strong>
+            <span>Aggiornamento istantaneo al cambio dei dati.</span>
+          </div>
+          <div class="stat">
+            <strong>WhatsApp</strong>
+            <span>Link diretto pronto all'uso con un tap.</span>
+          </div>
+          <div class="stat">
+            <strong>Responsive</strong>
+            <span>Design mobile friendly con interfaccia glassmorphism.</span>
+          </div>
+        </div>
+      </article>
 
-      <div class="cta">
-        <!-- ID aggiunto per far funzionare lo script -->
-        <a class="btn btnWA" id="waBtn"
-           href="https://api.whatsapp.com/send?phone=393516020208&text=Ciao,%20mi%20servono%20dei%20biglietti%20da%20visita."
-           target="_blank" rel="noopener">💬 Parla con il grafico ora</a>
-
-        <a class="btn" href="#prezzi">💶 Prezzi</a>
-        <a class="btn" href="#come">⚙️ Come funziona</a>
-      </div>
-
-      <div class="mini">
-        <span>✅ Prezzo fisso</span>
-        <span>✅ Bozza gratuita</span>
-        <span>✅ Consegna inclusa</span>
-      </div>
-
-      <div style="margin-top:18px;padding:14px;border:1px solid var(--border);border-radius:14px;background:rgba(255,255,255,.04);font-size:14px;max-width:260px;">
-        <strong>Orari di contatto</strong><br><br>
-
-        <b>Lun – Ven</b><br>
-        09:00 – 13:00<br>
-        16:00 – 18:30<br><br>
-
-        <b>Sabato</b><br>
-        Su appuntamento<br><br>
-
-        <b>Domenica</b><br>
-        Chiuso<br><br>
-
-        <span style="color:var(--muted);font-size:12px;">
-          Rispondiamo ai messaggi entro poche ore negli orari indicati.
-        </span>
-      </div>
+      <article class="glass preview-card" id="anteprima">
+        <h3>Anteprima dinamica</h3>
+        <p class="section-lead">Questa card si aggiorna in tempo reale mentre scrivi.</p>
+        <div class="preview-shell">
+          <section class="business-card" aria-label="Anteprima biglietto da visita personalizzato">
+            <div class="card-lines" aria-hidden="true"></div>
+            <div class="card-content">
+              <div class="card-chip" aria-hidden="true"></div>
+              <div>
+                <div class="card-label">Business Card</div>
+                <h4 class="card-name" id="previewName">Giulia Ferri</h4>
+              </div>
+              <div class="card-phone">
+                <span>●</span>
+                <span id="previewPhone">+39 333 123 4567</span>
+              </div>
+              <div class="mini-pill">Scansiona il QR o scrivi su WhatsApp</div>
+            </div>
+            <div class="qr-wrap">
+              <div class="qr-frame">
+                <img id="qrImage" alt="QR code per il contatto personalizzato" />
+              </div>
+              <div class="qr-caption">QR aggiornato automaticamente</div>
+            </div>
+          </section>
+          <div class="quick-actions">
+            <a class="button whatsapp" id="waButton" href="#" target="_blank" rel="noopener">💬 Apri WhatsApp</a>
+            <button class="button" id="copyButton" type="button">📋 Copia contatto</button>
+          </div>
+          <p class="helper" id="helperText">Link WhatsApp e QR code sono già sincronizzati con l'anteprima.</p>
+        </div>
+      </article>
     </section>
 
-    <div class="grid">
-      <section class="card" id="prezzi">
-        <h2 style="margin:0 0 8px 0">Prezzi chiari</h2>
-        <p class="note" style="margin:0 0 6px 0">Grafica + stampa + consegna inclusa.</p>
-
-        <!-- 500 -->
-        <div class="price">
-          <div class="row">
-            <div class="tag">500 biglietti (standard)</div>
-            <div class="euro">65€</div>
+    <section class="workspace" id="personalizza">
+      <article class="glass editor-card">
+        <h3>Personalizza i tuoi dati</h3>
+        <p class="section-lead">Compila i campi qui sotto: il biglietto si aggiornerà subito in automatico.</p>
+        <form class="form-grid" id="cardForm">
+          <div class="field">
+            <label for="nameInput">Nome</label>
+            <input id="nameInput" name="name" type="text" placeholder="Es. Giulia Ferri" value="Giulia Ferri" maxlength="48" />
           </div>
-          <p class="note">Ideale per iniziare. Tutto incluso.</p>
-        </div>
-
-       <div class="price featured">
-  <div class="row">
-    <div>
-      <div class="tag">1000 biglietti (standard)</div>
-      <div class="badge-inline">Più scelto ⭐</div>
-    </div>
-    <div class="euro">75€</div>
-  </div>
-  <p class="note">Il miglior rapporto qualità/prezzo. Tutto incluso.</p>
-</div>
-
-        <!-- 1000 plastificati -->
-        <div class="price">
-          <div class="row">
-            <div class="tag">1000 biglietti (plastificati)</div>
-            <div class="euro">85€</div>
+          <div class="field">
+            <label for="phoneInput">Telefono</label>
+            <input id="phoneInput" name="phone" type="tel" placeholder="Es. +39 333 123 4567" value="+39 333 123 4567" maxlength="24" />
           </div>
-          <p class="note">Più resistenti, effetto premium. Tutto incluso.</p>
-        </div>
-
-        <h3 style="margin:16px 0 8px 0">Incluso</h3>
-        <ul class="list">
-          <li>Grafica fronte/retro personalizzata</li>
-          <li>Bozza gratuita prima della stampa</li>
-          <li>Modifiche fino a conferma</li>
-          <li>Stampa tipografica professionale</li>
-          <li>Consegna inclusa</li>
-        </ul>
-
-        <div style="margin-top:14px">
-          <!-- ID aggiunto per far funzionare lo script -->
-          <a class="btn btnWA" id="waBtn2"
-             href="https://api.whatsapp.com/send?phone=393516020208&text=Ciao!%20Vorrei%20un%20preventivo%20per%20BIGLIETTI%20DA%20VISITA.%0A%0APacchetto%20(scegli):%0A-%2065%E2%82%AC%20(500%20standard)%0A-%2075%E2%82%AC%20(1000%20standard)%0A-%2085%E2%82%AC%20(1000%20plastificati)%0A%0ADATI%20PER%20LA%20GRAFICA%0A%E2%80%A2%20Nome%20attivit%C3%A0:%0A%E2%80%A2%20Settore/servizio%20(2%20righe):%0A%E2%80%A2%20Nome%20e%20cognome:%0A%E2%80%A2%20Telefono:%0A%E2%80%A2%20Email%20(facoltativa):%0A%E2%80%A2%20Indirizzo%20/%20zona%20consegna:%0A%0ASTAMPA%0A%E2%80%A2%20Fronte/retro%3F%20(F%20/%20F%2BR):%0A%E2%80%A2%20Stile%20(es.%20elegante,%20minimal,%20bold):%0A%E2%80%A2%20Hai%20logo/foto%3F%20(s%C3%AC/no)%0A%0AFATTURA%20(se%20serve)%0A%E2%80%A2%20P.IVA%20o%20CF:%0A%E2%80%A2%20Intestazione/Ragione%20sociale:%0A%E2%80%A2%20Indirizzo%20fatturazione:%0A%0ANote/urgenza:%0AGrazie!"
-             target="_blank" rel="noopener" style="width:100%">
-            💬 Ordina su WhatsApp
-          </a>
-
-          <p class="note" style="margin-top:10px">
-            Scrivici: nome attività + cosa fai + cosa vuoi sul biglietto. Ti mandiamo la bozza.
-          </p>
-        </div>
-      </section>
-
-      <aside class="card" id="come">
-        <h2 style="margin:0 0 8px 0">Come funziona</h2>
-
-        <div class="steps">
-          <div class="step">
-            <div class="num">1</div>
-            <b>Scrivi su WhatsApp</b>
-            <div class="note">Dati e preferenze.</div>
+          <div class="editor-actions">
+            <button class="button primary" type="submit">⚡ Aggiorna anteprima</button>
+            <button class="button" id="resetButton" type="button">↺ Ripristina demo</button>
           </div>
-          <div class="step">
-            <div class="num">2</div>
-            <b>Bozza gratuita</b>
-            <div class="note">Preview e modifiche con te.</div>
+          <p class="helper">Suggerimento: usa un numero completo di prefisso per un link WhatsApp corretto.</p>
+        </form>
+      </article>
+
+      <article class="glass preview-card">
+        <h3>Come funziona</h3>
+        <p class="section-lead">Una soluzione semplice ma d'impatto per condividere velocemente i tuoi contatti.</p>
+        <div class="features-grid" style="margin-top: 0; grid-template-columns: 1fr;">
+          <div class="feature" style="padding: 0; background: transparent; border: 0; box-shadow: none;">
+            <div class="feature-icon">1</div>
+            <h3>Inserisci i dati</h3>
+            <p>Nome e numero vengono visualizzati in una card digitale elegante con effetti glow neon.</p>
           </div>
-          <div class="step">
-            <div class="num">3</div>
-            <b>Conferma</b>
-            <div class="note">Stampiamo solo dopo OK.</div>
+          <div class="feature" style="padding: 0; background: transparent; border: 0; box-shadow: none;">
+            <div class="feature-icon">2</div>
+            <h3>QR code automatico</h3>
+            <p>Il sistema genera al volo un QR code che contiene nome, telefono e link WhatsApp cliccabile.</p>
           </div>
-          <div class="step">
-            <div class="num">4</div>
-            <b>Stampa + consegna</b>
-            <div class="note">Tutto pronto in mano.</div>
+          <div class="feature" style="padding: 0; background: transparent; border: 0; box-shadow: none;">
+            <div class="feature-icon">3</div>
+            <h3>Condividi ovunque</h3>
+            <p>Usa il bottone WhatsApp, fai copiare il contatto o mostra il QR dal telefono ai tuoi clienti.</p>
           </div>
         </div>
+      </article>
+    </section>
 
-        <div style="margin-top:14px" class="price">
-          <div class="tag">Domanda rapida</div>
-          <p class="note" style="margin-top:6px">
-            Vuoi inserirci QR, social o Google Maps? Possiamo farlo senza problemi.
-          </p>
-        </div>
-      </aside>
-    </div>
+    <section class="features-grid">
+      <article class="glass feature">
+        <div class="feature-icon">⚡</div>
+        <h3>Interfaccia moderna</h3>
+        <p>Look futuristico blu/viola con sfumature luminose, vetro satinato e micro-interazioni fluide.</p>
+      </article>
+      <article class="glass feature">
+        <div class="feature-icon">📱</div>
+        <h3>Mobile friendly</h3>
+        <p>Layout responsive ottimizzato per schermi piccoli, con CTA ben visibili e anteprima adattiva.</p>
+      </article>
+      <article class="glass feature">
+        <div class="feature-icon">🔗</div>
+        <h3>Pronto all'uso</h3>
+        <p>QR code, link WhatsApp e copia contatto sono inclusi: basta aprire la pagina e personalizzare.</p>
+      </article>
+    </section>
 
-    <footer class="footer">
-      <div>© <span id="year"></span> GM Arti Grafiche</div>
-      <!-- ID aggiunto per far funzionare lo script -->
-      <div><a id="waFooter" href="https://api.whatsapp.com/send?phone=393516020208" target="_blank" rel="noopener">WhatsApp</a></div>
+    <section class="glass tips">
+      <h3>Dettagli inclusi nell'output</h3>
+      <ul>
+        <li>Campi richiesti: <strong>nome</strong> e <strong>telefono</strong>.</li>
+        <li>QR code generato automaticamente tramite URL dinamico.</li>
+        <li>Pulsante WhatsApp con messaggio precompilato personalizzato.</li>
+        <li>Stile neon blu/viola coerente su tutta la pagina.</li>
+        <li>Esperienza completa funzionante senza dipendenze di build.</li>
+      </ul>
+    </section>
+
+    <footer>
+      <span>Neon Card Maker · Pagina demo completa per biglietti da visita personalizzati.</span>
+      <span>HTML, CSS e JavaScript vanilla · pronta all'uso.</span>
     </footer>
-  </div>
+  </main>
 
   <script>
-    // ✅ Numero WhatsApp (senza +, senza spazi): 3516020208 -> 39 + numero
-    const WHATSAPP_NUMBER = "393516020208";
+    const defaults = {
+      name: 'Giulia Ferri',
+      phone: '+39 333 123 4567'
+    };
 
-    // Messaggio commerciale aggiornato ai nuovi pacchetti 65/75/85
-    const WA_MESSAGE =
-`Ciao! Vorrei un preventivo per BIGLIETTI DA VISITA.
+    const form = document.getElementById('cardForm');
+    const nameInput = document.getElementById('nameInput');
+    const phoneInput = document.getElementById('phoneInput');
+    const previewName = document.getElementById('previewName');
+    const previewPhone = document.getElementById('previewPhone');
+    const qrImage = document.getElementById('qrImage');
+    const waButton = document.getElementById('waButton');
+    const copyButton = document.getElementById('copyButton');
+    const resetButton = document.getElementById('resetButton');
+    const helperText = document.getElementById('helperText');
 
-✅ Pacchetto (scegli):
-- 65€ (500 standard)
-- 75€ (1000 standard) ⭐ Più scelto
-- 85€ (1000 plastificati)
-
-DATI PER LA GRAFICA
-• Nome attività:
-• Settore/servizio (2 righe):
-• Nome e cognome:
-• Telefono:
-• Email (facoltativa):
-• Indirizzo / zona consegna:
-
-STAMPA
-• Fronte/retro? (F / F+R):
-• Preferenze colore/stile (es. elegante, minimal, bold):
-• Hai logo/foto? (sì/no) -> se sì, invio qui in chat
-
-FATTURA (se serve)
-• Partita IVA o Codice Fiscale:
-• Intestazione/Ragione sociale:
-• Indirizzo di fatturazione:
-
-Note/urgenza (se serve):
-Grazie!`;
-
-    function buildWaUrl(message) {
-      const text = encodeURIComponent(message);
-      return `https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${text}`;
+    function sanitizePhone(phone) {
+      return phone.replace(/[^\d+]/g, '');
     }
 
-    const hasNumber = WHATSAPP_NUMBER && WHATSAPP_NUMBER.trim().length > 0;
-
-    // (Opzionale) aggiunge anche il link della pagina nel messaggio
-    const PAGE_URL = window.location.href;
-    const finalMessage = WA_MESSAGE + `\n\nLink pagina: ${PAGE_URL}`;
-
-    const url = hasNumber ? buildWaUrl(finalMessage) : "#";
-
-    // Ora gli ID esistono davvero
-    document.getElementById("waBtn").href = url;
-    document.getElementById("waBtn2").href = url;
-    document.getElementById("waFooter").href = url;
-
-    const pretty = (hasNumber && WHATSAPP_NUMBER.startsWith("39"))
-      ? "+39 " + WHATSAPP_NUMBER.slice(2)
-      : (hasNumber ? WHATSAPP_NUMBER : "+39 …");
-
-    document.getElementById("waLabel").textContent = pretty;
-    document.getElementById("year").textContent = new Date().getFullYear();
-
-    if (!hasNumber) {
-      const warn = () => alert("Inserisci il numero WhatsApp nel codice: WHATSAPP_NUMBER.");
-      document.getElementById("waBtn").addEventListener("click", (e) => { e.preventDefault(); warn(); });
-      document.getElementById("waBtn2").addEventListener("click", (e) => { e.preventDefault(); warn(); });
-      document.getElementById("waFooter").addEventListener("click", (e) => { e.preventDefault(); warn(); });
+    function normalizeWhatsAppPhone(phone) {
+      return phone.replace(/\D/g, '');
     }
+
+    function buildPayload(name, phone) {
+      const cleanName = name.trim() || defaults.name;
+      const cleanPhone = phone.trim() || defaults.phone;
+      const whatsappPhone = normalizeWhatsAppPhone(cleanPhone);
+      const message = `Ciao ${cleanName}, ho visto il tuo biglietto da visita digitale!`;
+      const waLink = whatsappPhone
+        ? `https://wa.me/${whatsappPhone}?text=${encodeURIComponent(message)}`
+        : 'https://wa.me/?text=' + encodeURIComponent(message);
+      const qrText = `Nome: ${cleanName}\nTelefono: ${sanitizePhone(cleanPhone)}\nWhatsApp: ${waLink}`;
+      const qrSrc = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(qrText)}`;
+
+      return {
+        cleanName,
+        cleanPhone,
+        waLink,
+        qrSrc
+      };
+    }
+
+    function updateCard() {
+      const { cleanName, cleanPhone, waLink, qrSrc } = buildPayload(nameInput.value, phoneInput.value);
+      previewName.textContent = cleanName;
+      previewPhone.textContent = cleanPhone;
+      waButton.href = waLink;
+      qrImage.src = qrSrc;
+      qrImage.alt = `QR code per ${cleanName}`;
+      helperText.textContent = `Contatto attivo: ${cleanName} · ${cleanPhone}`;
+    }
+
+    async function copyContact() {
+      const { cleanName, cleanPhone, waLink } = buildPayload(nameInput.value, phoneInput.value);
+      const text = `${cleanName}\n${cleanPhone}\n${waLink}`;
+
+      try {
+        await navigator.clipboard.writeText(text);
+        copyButton.textContent = '✅ Contatto copiato';
+        helperText.textContent = 'Contatto copiato negli appunti con successo.';
+      } catch (error) {
+        copyButton.textContent = '⚠️ Copia non disponibile';
+        helperText.textContent = 'Il browser non consente la copia automatica in questo momento.';
+      }
+
+      window.setTimeout(() => {
+        copyButton.textContent = '📋 Copia contatto';
+        updateCard();
+      }, 2200);
+    }
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+      updateCard();
+    });
+
+    nameInput.addEventListener('input', updateCard);
+    phoneInput.addEventListener('input', updateCard);
+    copyButton.addEventListener('click', copyContact);
+
+    resetButton.addEventListener('click', function() {
+      nameInput.value = defaults.name;
+      phoneInput.value = defaults.phone;
+      updateCard();
+    });
+
+    updateCard();
   </script>
 </body>
 </html>
