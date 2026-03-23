@@ -10,16 +10,23 @@
   />
   <style>
     :root {
-      --bg: #f4f7f4;
-      --surface: rgba(255, 255, 255, 0.94);
-      --surface-strong: #ffffff;
-      --text: #0f1720;
-      --muted: #5c6b62;
+      --bg: #060816;
+      --bg-deep: #0b1023;
+      --surface: rgba(10, 16, 37, 0.86);
+      --surface-strong: rgba(15, 24, 52, 0.96);
+      --surface-featured: rgba(20, 28, 65, 0.98);
+      --text: #f8fbff;
+      --muted: #b1bddb;
+      --line: rgba(125, 92, 255, 0.25);
+      --line-strong: rgba(83, 198, 255, 0.34);
       --whatsapp: #25d366;
       --whatsapp-dark: #1ea952;
-      --accent-soft: rgba(37, 211, 102, 0.12);
-      --shadow: 0 24px 60px rgba(15, 23, 32, 0.12);
-      --shadow-soft: 0 18px 40px rgba(15, 23, 32, 0.08);
+      --accent-violet: #8b5cf6;
+      --accent-blue: #4cc9ff;
+      --accent-soft: rgba(139, 92, 246, 0.18);
+      --glow: 0 0 0 1px rgba(76, 201, 255, 0.18), 0 0 28px rgba(76, 201, 255, 0.12), 0 0 42px rgba(139, 92, 246, 0.1);
+      --shadow: 0 28px 70px rgba(0, 0, 0, 0.45);
+      --shadow-soft: 0 20px 48px rgba(0, 0, 0, 0.3);
       --radius: 32px;
     }
 
@@ -34,8 +41,9 @@
       font-family: Inter, Arial, Helvetica, sans-serif;
       color: var(--text);
       background:
-        radial-gradient(circle at top, rgba(37, 211, 102, 0.15), transparent 35%),
-        linear-gradient(180deg, #f8fbf8 0%, #edf5ee 100%);
+        radial-gradient(circle at top, rgba(76, 201, 255, 0.14), transparent 28%),
+        radial-gradient(circle at 20% 20%, rgba(139, 92, 246, 0.14), transparent 30%),
+        linear-gradient(180deg, var(--bg) 0%, var(--bg-deep) 48%, #04060f 100%);
     }
 
     main {
@@ -51,8 +59,8 @@
       box-shadow: var(--shadow);
       padding: clamp(32px, 6vw, 64px);
       text-align: center;
-      border: 1px solid rgba(37, 211, 102, 0.12);
-      backdrop-filter: blur(12px);
+      border: 1px solid var(--line);
+      backdrop-filter: blur(16px);
     }
 
     .eyebrow {
@@ -62,12 +70,13 @@
       padding: 10px 18px;
       border-radius: 999px;
       background: var(--accent-soft);
-      color: var(--whatsapp-dark);
+      color: #d8cbff;
       font-size: 0.9rem;
       font-weight: 700;
       letter-spacing: 0.04em;
       text-transform: uppercase;
       margin-bottom: 24px;
+      border: 1px solid rgba(139, 92, 246, 0.2);
     }
 
     h1,
@@ -80,6 +89,11 @@
       font-size: clamp(2.2rem, 6vw, 4.5rem);
       line-height: 0.95;
       letter-spacing: -0.05em;
+      text-wrap: balance;
+    }
+
+    h2 {
+      text-wrap: balance;
     }
 
     .hero-text {
@@ -124,7 +138,7 @@
     .note {
       margin-top: 18px;
       font-size: 0.95rem;
-      color: #718178;
+      color: #92a1c7;
     }
 
     .pricing-section {
@@ -159,15 +173,19 @@
       gap: 18px;
       padding: 28px;
       border-radius: 28px;
-      background: var(--surface-strong);
-      border: 1px solid rgba(15, 23, 32, 0.08);
-      box-shadow: var(--shadow-soft);
+      background: linear-gradient(180deg, rgba(17, 25, 54, 0.96), rgba(10, 17, 37, 0.96));
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow-soft), var(--glow);
     }
 
     .pricing-card.featured {
-      border-color: rgba(37, 211, 102, 0.36);
-      background: linear-gradient(180deg, rgba(37, 211, 102, 0.12), rgba(255, 255, 255, 0.98));
-      box-shadow: 0 22px 46px rgba(37, 211, 102, 0.16);
+      border-color: var(--line-strong);
+      background: linear-gradient(180deg, rgba(20, 31, 70, 0.98), rgba(11, 19, 43, 0.98));
+      box-shadow:
+        0 24px 56px rgba(0, 0, 0, 0.34),
+        0 0 0 1px rgba(76, 201, 255, 0.24),
+        0 0 36px rgba(76, 201, 255, 0.18),
+        0 0 52px rgba(139, 92, 246, 0.16);
       transform: translateY(-6px);
     }
 
@@ -177,12 +195,13 @@
       right: 18px;
       padding: 8px 12px;
       border-radius: 999px;
-      background: rgba(15, 23, 32, 0.92);
+      background: linear-gradient(135deg, var(--accent-violet), #6d6bff);
       color: #ffffff;
       font-size: 0.78rem;
       font-weight: 700;
       letter-spacing: 0.04em;
       text-transform: uppercase;
+      box-shadow: 0 10px 22px rgba(139, 92, 246, 0.35);
     }
 
     .pricing-title {
@@ -202,6 +221,8 @@
       font-size: clamp(2.1rem, 5vw, 3rem);
       font-weight: 900;
       letter-spacing: -0.05em;
+      color: #ffffff;
+      text-shadow: 0 0 16px rgba(76, 201, 255, 0.12);
     }
 
     .pricing-features {
@@ -223,7 +244,8 @@
 
     .pricing-features li::before {
       content: "✔";
-      color: var(--whatsapp-dark);
+      color: var(--accent-blue);
+      text-shadow: 0 0 12px rgba(76, 201, 255, 0.4);
       font-weight: 800;
       flex: 0 0 auto;
     }
@@ -300,6 +322,7 @@
           <div class="pricing-price">€60</div>
           <ul class="pricing-features">
             <li>Grafica fronte / retro inclusa</li>
+            <li>Consegna in tutta Italia inclusa 🇮🇹</li>
           </ul>
         </article>
 
@@ -312,6 +335,7 @@
           <div class="pricing-price">€80</div>
           <ul class="pricing-features">
             <li>Grafica fronte / retro inclusa</li>
+            <li>Consegna in tutta Italia inclusa 🇮🇹</li>
           </ul>
         </article>
 
@@ -323,6 +347,7 @@
           <div class="pricing-price">€90</div>
           <ul class="pricing-features">
             <li>Grafica fronte / retro inclusa</li>
+            <li>Consegna in tutta Italia inclusa 🇮🇹</li>
           </ul>
         </article>
       </div>
