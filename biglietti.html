@@ -358,21 +358,9 @@
 </main>
 
 <footer>
-  🔥 +<span id="counter">0</span> persone servite
+  <img src="https://visitor-badge.laobi.icu/badge?page_id=mondino_biglietti_visite" />
 </footer>
 
-<footer>
-  🔥 +<span id="counter">...</span> persone servite
-</footer>
 
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-  fetch('https://api.countapi.xyz/update/mondino_biglietti/visite?amount=1')
-    .then(res => res.json())
-    .then(data => {
-      document.getElementById('counter').textContent = data.value;
-    });
-});
-</script>
 </body>
 </html>
