@@ -363,14 +363,22 @@
 
 <script>
 window.onload = function() {
+
+  // Incrementa il contatore
   fetch('https://api.countapi.xyz/update/mondino_biglietti/visite?amount=1')
+    .then(() => {
+
+      // Poi prende il valore aggiornato
+      return fetch('https://api.countapi.xyz/get/mondino_biglietti/visite');
+    })
     .then(res => res.json())
-    .then(res => {
-      document.getElementById('counter').innerText = res.value;
+    .then(data => {
+      document.getElementById('counter').innerText = data.value;
     })
     .catch(() => {
       document.getElementById('counter').innerText = "1";
     });
+
 }
 </script>
 </body>
