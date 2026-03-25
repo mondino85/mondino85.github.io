@@ -367,17 +367,11 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-
   fetch('https://api.countapi.xyz/update/mondino_biglietti/visite?amount=1')
-    .then(response => response.json())
+    .then(res => res.json())
     .then(data => {
       document.getElementById('counter').textContent = data.value;
-    })
-    .catch(error => {
-      console.log(error);
-      document.getElementById('counter').textContent = "1";
     });
-
 });
 </script>
 </body>
