@@ -355,3 +355,19 @@
   </main>
 </body>
 </html>
+</main>
+
+<footer>
+  🔥 +<span id="counter">0</span> persone servite
+</footer>
+
+<script>
+fetch('https://api.countapi.xyz/hit/mondino.me/biglietti')
+  .then(res => res.json())
+  .then(res => {
+    document.getElementById('counter').innerText = res.value;
+  });
+</script>
+
+</body>
+</html>
