@@ -362,8 +362,16 @@
 </footer>
 
 <script>
-document.getElementById('counter').innerText = "999";
+window.onload = function() {
+  fetch('https://api.countapi.xyz/update/mondino_biglietti/visite?amount=1')
+    .then(res => res.json())
+    .then(res => {
+      document.getElementById('counter').innerText = res.value;
+    })
+    .catch(() => {
+      document.getElementById('counter').innerText = "1";
+    });
+}
 </script>
-
 </body>
 </html>
