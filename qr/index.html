@@ -4,6 +4,28 @@
   <title>Mondino QR</title>
 </head>
 <body>
-  <h1>Mondino Gate attivo</h1>
+  <p>Caricamento...</p>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
+
+    fetch("/qr.json")
+      .then(res => res.json())
+      .then(data => {
+        if (data[id]) {
+          if (data[id].active) {
+            window.location.href = data[id].url;
+          } else {
+            document.body.innerHTML = "<h1>QR disattivato</h1>";
+          }
+        } else {
+          document.body.innerHTML = "<h1>QR non valido</h1>";
+        }
+      })
+      .catch(() => {
+        document.body.innerHTML = "<h1>Errore sistema</h1>";
+      });
+  </script>
 </body>
 </html>
