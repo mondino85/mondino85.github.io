@@ -12,13 +12,14 @@ const $=s=>document.querySelector(s);
 const demo=[{name:'Marco Rossi',alias:'Mark',gender:'Uomo',count:2,kind:'Tavolo',number:'7'},{name:'Giulia Bianchi',alias:'',gender:'Donna',count:4,kind:'Sala',number:'2'}];
 function show(section){for(const s of ['intro','rsvp','manager']){$('#'+s).classList.toggle('hide',section!=='intro'&&s==='intro');if(s!=='intro')$('#'+s).classList.toggle('active',section===s)}if(section==='manager')render();window.scrollTo({top:0,behavior:'smooth'})}
 function render(){const tbody=$('#rows');tbody.replaceChildren();demo.forEach((x,i)=>{const tr=document.createElement('tr');[i+1,x.name+(x.alias?' ('+x.alias+')':''),x.gender,x.count,x.kind+' '+x.number].forEach(value=>{const td=document.createElement('td');td.textContent=value;tr.append(td)});tbody.append(tr)})}
-$('#open').onclick=()=>{$('#frame').classList.add('opened');$('#open').disabled=true;setTimeout(()=>show('rsvp'),1550)};
+$('#open').onclick=()=>{if(!timer){try{startAudio()}catch(e){console.warn('Audio unavailable',e)}}$('#frame').classList.add('opened');$('#open').disabled=true;setTimeout(()=>show('rsvp'),1550)};
 $('#back').onclick=$('#backManager').onclick=()=>{$('#frame').classList.remove('opened');$('#open').disabled=false;history.replaceState(null,'',location.pathname);show('intro')};
 $('#viewManager').onclick=$('#managerFromRsvp').onclick=()=>{history.replaceState(null,'','?view=manager');show('manager')};
 $('#kind').onchange=()=>$('#numberLabel').textContent='N. '+$('#kind').value+' (facoltativo)';
 $('#rsvpForm').onsubmit=e=>{e.preventDefault();$('#success').textContent='✓ Anteprima completata! Questa conferma è una simulazione e non è stata registrata.';$('#success').classList.add('visible')};
 $('#csv').onclick=()=>{const cols=[['N','Nome','Alias','Sesso','Partecipanti','Tipo','Numero'],...demo.map((x,i)=>[i+1,x.name,x.alias,x.gender,x.count,x.kind,x.number])];const csv='\ufeff'+cols.map(r=>r.map(x=>'"'+String(x).replaceAll('"','""')+'"').join(';')).join('\r\n');const url=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='lista-demo-esempio.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};
 let ctx=null,timer=null;function play(){ctx??=new(window.AudioContext||window.webkitAudioContext)();ctx.resume();for(let i=0;i<8;i++){const t=ctx.currentTime+i*.43;const o=ctx.createOscillator(),g=ctx.createGain();o.type='sine';o.frequency.setValueAtTime(140,t);o.frequency.exponentialRampToValueAtTime(45,t+.15);g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.35,t+.007);g.gain.exponentialRampToValueAtTime(.0001,t+.22);o.connect(g).connect(ctx.destination);o.start(t);o.stop(t+.24)}}
-$('#audio').onclick=()=>{if(timer){clearInterval(timer);timer=null;ctx?.suspend();$('#audio').textContent='♫ Audio OFF'}else{play();timer=setInterval(play,3440);$('#audio').textContent='♫ Audio ON'}};
+function startAudio(){if(timer)return;play();timer=setInterval(play,3440);$('#audio').textContent='♫ Audio ON'}
+$('#audio').onclick=()=>{if(timer){clearInterval(timer);timer=null;ctx?.suspend();$('#audio').textContent='♫ Audio OFF'}else{startAudio()}};
 if(new URLSearchParams(location.search).get('view')==='manager')show('manager');else show('intro');
 </script></body></html>
